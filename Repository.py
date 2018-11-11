@@ -128,6 +128,7 @@ class Repository:
         for row in db.execute(query):
                 pt.add_row(row) 
         print (pt)
+        db.close()
 
     def reading_majors(self, path):
         try:
