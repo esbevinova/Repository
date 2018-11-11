@@ -7,7 +7,7 @@ from HW08ebevinova import read_file
 import unittest
 import os
 from collections import defaultdict
-
+import sqlite3
 
 class Student:
     "A class that stores all the information about students."
@@ -97,6 +97,8 @@ class Repository:
         self.get_grades(os.path.join(path, 'grades.txt'))
         self.reading_majors(os.path.join(path, 'majors.txt'))
 
+        
+
         if ptables:
             print("\nStudent Summary")
             self.student_table()
@@ -121,10 +123,12 @@ class Repository:
         print (pt)
     
     def instructor_table(self):
-        """A function that creates a table with instructor's information."""
+        """A function that creates a table with instructor's information that is extracted from External Database."""
+        DB_FILE = "C:\sql\810_startup.db"
+        db = sqlite3.connect(DB_FILE)
         pt = PrettyTable(field_names = Instructor.pt_hdr)
-        for instructor in self.instructors.values():
-            for row in instructor.pt_row():
+        query = "select CWID, Name, Dept, Course, count(Course) as Students from (select * from HW11_instructors left join HW11_grades on  Instructor_CWID = CWID) group by Course order by CWID DESC "
+        for row in db.execute(query):
                 pt.add_row(row) 
         print (pt)
 
