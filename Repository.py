@@ -1,6 +1,6 @@
 """SSW-810-A
    Ekaterina (katya) Bevinova
-   HW10
+   HW11
 """
 from prettytable import PrettyTable
 from HW08ebevinova import read_file
@@ -37,7 +37,6 @@ class Majors:
         self.required = set()
         self.electives = set()
         
-    
     def add(self, flag, course):
         if flag == 'R':
             self.required.add(course)
@@ -96,8 +95,6 @@ class Repository:
         self.get_instructors(os.path.join(path, 'instructors.txt'))
         self.get_grades(os.path.join(path, 'grades.txt'))
         self.reading_majors(os.path.join(path, 'majors.txt'))
-
-        
 
         if ptables:
             print("\nStudent Summary")
